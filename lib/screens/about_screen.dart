@@ -3,20 +3,26 @@ import 'package:url_launcher/url_launcher.dart';
 import '../constants/app_styles.dart';
 
 class AboutScreen extends StatelessWidget {
-  const AboutScreen({Key? key}) : super(key: key);
+  const AboutScreen({super.key});
 
-  static const String _repoUrl = 'https://github.com/your-username/your-repo';
+  static const String _repoUrl = 'https://github.com/elgato-Nya/dividend-calculator';
 
-  Future<void> _launchRepo(BuildContext context) async {
-    final uri = Uri.parse(_repoUrl);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Could not launch URL')),
-      );
-    }
+Future<void> _launchRepo(BuildContext context) async {
+  final uri = Uri.parse(_repoUrl);
+  final messenger = ScaffoldMessenger.of(context);
+
+  final canLaunch = await canLaunchUrl(uri);
+  debugPrint('Trying to launch $_repoUrl — Can launch? $canLaunch');
+
+  if (canLaunch) {
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  } else {
+    messenger.showSnackBar(
+      const SnackBar(content: Text('Could not launch URL')),
+    );
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -275,7 +281,7 @@ class _Card extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Card(
-      color: color ?? theme.colorScheme.background,
+      color: color ?? theme.colorScheme.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(18),
       ),
