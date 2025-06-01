@@ -1,3 +1,4 @@
+// Validates the invested fund input. Returns error message if invalid.
 String? validateFund(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter invested fund';
@@ -9,6 +10,7 @@ String? validateFund(String? value) {
   return null;
 }
 
+// Validates the dividend rate input. Returns error message if invalid.
 String? validateRate(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter dividend rate';
@@ -20,6 +22,7 @@ String? validateRate(String? value) {
   return null;
 }
 
+// Validates the months invested input. Must be between 1 and 12.
 String? validateMonths(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter months invested';

@@ -11,12 +11,13 @@ class ResultCard extends StatelessWidget {
     required this.totalDividend,
   });
 
+  // Shows a dialog with the full value for copying
   void _showFullValue(BuildContext context, String label, String value) {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
         title: Text(label),
-        content: SelectableText(value), // user can copy if they like
+        content: SelectableText(value),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -40,6 +41,7 @@ class ResultCard extends StatelessWidget {
     final monthlyStr = monthlyDividend.toString();
     final totalStr = totalDividend.toStringAsFixed(2);
 
+    // Builds a row for each result value
     Widget buildRow(String label, IconData icon, String value) {
       final shortValue = value.length > 12 ? '${value.substring(0, 8)}…' : value;
       return Container(

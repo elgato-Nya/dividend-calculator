@@ -32,6 +32,7 @@ class HistoryScreen extends StatelessWidget {
             horizontal: AppStyles.padding,
             vertical: AppStyles.padding * 1.5,
           ),
+          // Show message if history is empty, otherwise show list
           child: history.isEmpty
               ? Center(
                   child: Text(
@@ -40,7 +41,7 @@ class HistoryScreen extends StatelessWidget {
                   ),
                 )
               : ListView.separated(
-                  itemCount: history.length > 10 ? 10 : history.length,
+                  itemCount: history.length > 10 ? 10 : history.length, // Limit to 10 records
                   separatorBuilder: (_, __) => const SizedBox(height: 14),
                   itemBuilder: (context, i) {
                     final record = history[i];
@@ -57,6 +58,7 @@ class HistoryScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            // Fund amount and record number
                             Row(
                               children: [
                                 CircleAvatar(
@@ -80,6 +82,7 @@ class HistoryScreen extends StatelessWidget {
                               ],
                             ),
                             const SizedBox(height: 8),
+                            // Rate and months
                             Row(
                               children: [
                                 Icon(Icons.percent, color: primary, size: 20),
@@ -92,6 +95,7 @@ class HistoryScreen extends StatelessWidget {
                               ],
                             ),
                             const SizedBox(height: 8),
+                            // Monthly and total dividend
                             Row(
                               children: [
                                 Icon(Icons.attach_money, color: primary, size: 20),
@@ -104,11 +108,12 @@ class HistoryScreen extends StatelessWidget {
                               ],
                             ),
                             const SizedBox(height: 4),
+                            // Timestamp
                             Align(
                               alignment: Alignment.bottomRight,
                               child: Text(
                                 'Calculated: ${record['timestamp']}',
-                                style: theme.textTheme.bodySmall?.copyWith(color: onSecondaryContainer.withOpacity(0.7)),
+                                style: theme.textTheme.bodySmall?.copyWith(color: onSecondaryContainer.withAlpha((0.7 * 255).round())),
                               ),
                             ),
                           ],

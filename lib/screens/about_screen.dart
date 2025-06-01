@@ -7,22 +7,22 @@ class AboutScreen extends StatelessWidget {
 
   static const String _repoUrl = 'https://github.com/elgato-Nya/dividend-calculator';
 
-Future<void> _launchRepo(BuildContext context) async {
-  final uri = Uri.parse(_repoUrl);
-  final messenger = ScaffoldMessenger.of(context);
+  // Launches the GitHub repository URL in an external browser
+  Future<void> _launchRepo(BuildContext context) async {
+    final uri = Uri.parse(_repoUrl);
+    final messenger = ScaffoldMessenger.of(context);
 
-  final canLaunch = await canLaunchUrl(uri);
-  debugPrint('Trying to launch $_repoUrl — Can launch? $canLaunch');
+    final canLaunch = await canLaunchUrl(uri);
+    debugPrint('Trying to launch $_repoUrl — Can launch? $canLaunch');
 
-  if (canLaunch) {
-    await launchUrl(uri, mode: LaunchMode.externalApplication);
-  } else {
-    messenger.showSnackBar(
-      const SnackBar(content: Text('Could not launch URL')),
-    );
+    if (canLaunch) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      messenger.showSnackBar(
+        const SnackBar(content: Text('Could not launch URL')),
+      );
+    }
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,6 @@ Future<void> _launchRepo(BuildContext context) async {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // App Icon & Title
                 Center(
                   child: Column(
                     children: [
@@ -115,76 +114,71 @@ Future<void> _launchRepo(BuildContext context) async {
                     ],
                   ),
                 ),
-
                 const SizedBox(height: AppStyles.padding * 2),
-
-                // Features Card
+                // Features section
                 _Card(
                   padding: const EdgeInsets.all(AppStyles.padding * 1.2),
                   color: primaryContainer,
                   child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                        Icon(Icons.star_rounded, color: Color.fromARGB(255, 235, 196, 23), size: 28),
-                      const SizedBox(width: 10),
-                      Text(
-                      'Key Features',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w800,
-                        fontSize: 21,
-                        letterSpacing: 0.5,
-                        color: onPrimaryContainer,
+                      Row(
+                        children: [
+                          Icon(Icons.star_rounded, color: Color.fromARGB(255, 235, 196, 23), size: 28),
+                          const SizedBox(width: 10),
+                          Text(
+                            'Key Features',
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 21,
+                              letterSpacing: 0.5,
+                              color: onPrimaryContainer,
+                            ),
+                          ),
+                        ],
                       ),
-                      ),
+                      const SizedBox(height: 7),
+                      _featureItem('Fast and easy dividend calculations', theme),
+                      _featureItem('Save and manage multiple records', theme),
+                      _featureItem('Clean, intuitive interface', theme),
+                      _featureItem('100% offline, no data collection', theme),
                     ],
-                    ),
-                    const SizedBox(height: 7),
-                    _featureItem('Fast and easy dividend calculations', theme),
-                    _featureItem('Save and manage multiple records', theme),
-                    _featureItem('Clean, intuitive interface', theme),
-                    _featureItem('100% offline, no data collection', theme),
-                  ],
                   ),
                 ),
-
                 const SizedBox(height: AppStyles.padding * 0.5),
-
-                // Developer Info Card
+                // Developer info section
                 _Card(
                   color: primaryContainer.withAlpha((0.7 * 255).round()),
                   child: Row(
-                  children: [
-                    CircleAvatar(
-                    radius: 28,
-                    backgroundColor: secondaryContainer,
-                    child: ClipOval(
-                      child: Image.asset(
-                      'assets/choki_mad.jpg',
-                      width: 56,
-                      height: 56,
-                      fit: BoxFit.cover,
+                    children: [
+                      CircleAvatar(
+                        radius: 28,
+                        backgroundColor: secondaryContainer,
+                        child: ClipOval(
+                          child: Image.asset(
+                            'assets/choki_mad.jpg',
+                            width: 56,
+                            height: 56,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
-                    ),
-                    ),
-                    const SizedBox(width: 18),
-                    Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                      Text('elgato-Nya', style: theme.textTheme.bodyLarge?.copyWith(fontSize: 21, fontWeight: FontWeight.w700, color: onSurface)),
-                      Text('Matric No: 2023197751', style: theme.textTheme.bodyMedium?.copyWith(color: onSurface.withAlpha((0.8 * 255).round()))),
-                      Text('Course: Mobile Techonlogy & Development', style: theme.textTheme.bodyMedium?.copyWith(color: onSurface.withAlpha((0.8 * 255).round()))),
-                      ],
-                    ),
-                    ),
-                  ],
+                      const SizedBox(width: 18),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('elgato-Nya', style: theme.textTheme.bodyLarge?.copyWith(fontSize: 21, fontWeight: FontWeight.w700, color: onSurface)),
+                            Text('Matric No: 2023197751', style: theme.textTheme.bodyMedium?.copyWith(color: onSurface.withAlpha((0.8 * 255).round()))),
+                            Text('Course: Mobile Techonlogy & Development', style: theme.textTheme.bodyMedium?.copyWith(color: onSurface.withAlpha((0.8 * 255).round()))),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: AppStyles.padding * 0.5),
-
-                // App Purpose / Info
+                // App purpose/info section
                 _Card(
                   color: primaryContainer,
                   child: Row(
@@ -205,10 +199,8 @@ Future<void> _launchRepo(BuildContext context) async {
                     ],
                   ),
                 ),
-
                 const SizedBox(height: AppStyles.padding * 0.5),
-
-                // GitHub Button
+                // GitHub button
                 SizedBox(
                   height: 50,
                   child: ElevatedButton.icon(
@@ -230,9 +222,7 @@ Future<void> _launchRepo(BuildContext context) async {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: AppStyles.padding * 1.5),
-
                 // Copyright
                 Text(
                   '© ${DateTime.now().year} elgato-Nya',
@@ -247,6 +237,7 @@ Future<void> _launchRepo(BuildContext context) async {
     );
   }
 
+  // Builds a feature item row with icon and text
   Widget _featureItem(String text, ThemeData theme) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -266,6 +257,7 @@ Future<void> _launchRepo(BuildContext context) async {
   }
 }
 
+// Custom card widget for consistent styling
 class _Card extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry? padding;
@@ -286,7 +278,7 @@ class _Card extends StatelessWidget {
         borderRadius: BorderRadius.circular(18),
       ),
       elevation: 1.5,
-      shadowColor: theme.colorScheme.shadow.withOpacity(0.04),
+      shadowColor: theme.colorScheme.shadow.withAlpha((0.04 * 255).round()),
       child: Padding(
         padding: padding ?? const EdgeInsets.all(AppStyles.padding),
         child: child,

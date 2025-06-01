@@ -3,7 +3,6 @@ import '../models/investment.dart';
 import '../utils/validators.dart';
 import '../constants/app_styles.dart';
 
-/// Provides both monthly and total dividends.
 typedef CalculateCallback = void Function(
   double monthlyDividend,
   double totalDividend,
@@ -33,6 +32,7 @@ class _InputFormState extends State<InputForm> {
     super.dispose();
   }
 
+  // Validate and submit the form, then call the callback with calculated dividends
   void _submit() {
     if (_formKey.currentState!.validate()) {
       final fund = double.parse(_fundCtrl.text);
@@ -57,7 +57,6 @@ class _InputFormState extends State<InputForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Section Header
           Text(
             'Enter Investment Details',
             style: theme.textTheme.titleMedium?.copyWith(
@@ -67,7 +66,6 @@ class _InputFormState extends State<InputForm> {
           ),
           const SizedBox(height: AppStyles.padding),
 
-          // Invested Fund
           TextFormField(
             controller: _fundCtrl,
             onChanged: (_) => _notifyFormChanged(),
@@ -88,7 +86,6 @@ class _InputFormState extends State<InputForm> {
           ),
           const SizedBox(height: AppStyles.padding),
 
-          // Dividend Rate
           TextFormField(
             controller: _rateCtrl,
             onChanged: (_) => _notifyFormChanged(),
@@ -101,7 +98,7 @@ class _InputFormState extends State<InputForm> {
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: primary, width: 2),
               ),
-              labelStyle: TextStyle(color: onSurface.withOpacity(0.7)),
+              labelStyle: TextStyle(color: onSurface.withAlpha((0.7 * 255).toInt())),
             ),
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             validator: validateRate,
@@ -109,7 +106,6 @@ class _InputFormState extends State<InputForm> {
           ),
           const SizedBox(height: AppStyles.padding),
 
-          // Months Invested
           TextFormField(
             controller: _monthsCtrl,
             onChanged: (_) => _notifyFormChanged(),
@@ -122,7 +118,7 @@ class _InputFormState extends State<InputForm> {
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: primary, width: 2),
               ),
-              labelStyle: TextStyle(color: onSurface.withOpacity(0.7)),
+              labelStyle: TextStyle(color: onSurface.withAlpha((0.7 * 255).toInt())),
             ),
             keyboardType: TextInputType.number,
             validator: validateMonths,
@@ -130,7 +126,7 @@ class _InputFormState extends State<InputForm> {
           ),
           const SizedBox(height: AppStyles.padding * 1.5),
 
-          // Calculate Button
+          // Button to trigger calculation
           SizedBox(
             height: 48,
             child: ElevatedButton(
@@ -146,7 +142,7 @@ class _InputFormState extends State<InputForm> {
                   fontWeight: FontWeight.bold,
                 ),
                 elevation: 2,
-                shadowColor: primary.withOpacity(0.10),
+                shadowColor: primary.withAlpha((0.10 * 255).toInt()),
               ),
               child: const Text('Calculate Dividend'),
             ),
@@ -156,6 +152,7 @@ class _InputFormState extends State<InputForm> {
     );
   }
 
+  // Notify parent widget when form fields change
   void _notifyFormChanged() {
     if (widget.onFormChanged != null) {
       final fund = double.tryParse(_fundCtrl.text) ?? 0;
